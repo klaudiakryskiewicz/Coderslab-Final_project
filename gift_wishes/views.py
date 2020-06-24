@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
-from gift_wishes.models import Wish, Member, Family, Present
+from gift_wishes.models import Wish, Member, Present
 
 
 class AddWishView(CreateView):
@@ -14,18 +14,21 @@ class AddWishView(CreateView):
 
 
 class WishListView(View):
-    def get(self, request):
-        pass
+    def get(self, request, id):
+        wishes = Wish.objects.filter(member_id=id)
+        return render(request, 'list.html', {'objects': wishes})
 
 
 class PresentListView(View):
-    def get(self, request):
-        pass
+    def get(self, request, id):
+        presents = Present.objects.filter(user_id=id)
+        return render(request, 'list.html', {'objects':presents})
 
 
 class FamilyMembersView(View):
-    def get(self, request):
-        pass
+    def get(self, request, id):
+        members = Member.objects.filter(family_id=id)
+        return render(request, 'list.html', {'objects': members})
 
 
 class AddMemberView(CreateView):

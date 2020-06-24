@@ -20,9 +20,9 @@ from gift_wishes import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('add-wish/', views.AddWishView.as_view(), name='add-wish'),
-    path('wish-list/', views.WishListView.as_view(), name='wish-list'),
-    path('present-list/', views.PresentListView.as_view(), name='present-list'),
-    path('family/', views.FamilyMembersView.as_view(), name='family'),
+    path('wish-list/<int:id>/', views.WishListView.as_view(), name='wish-list'),
+    path('present-list/<int:id>/', views.PresentListView.as_view(), name='present-list'),
+    path('family/<int:id>', views.FamilyMembersView.as_view(), name='family'),
     path('add-member/', views.AddMemberView.as_view(), name='add-member'),
     path('add-family/', views.AddFamilyView.as_view(), name='add-family'),
 # path('wish-details/', views.WishDetailsViews.as_view(), name='wish-details'), OPCJONALNIE
