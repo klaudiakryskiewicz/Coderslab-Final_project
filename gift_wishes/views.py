@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.urls import reverse_lazy
 from django.views import View
@@ -30,9 +30,9 @@ class AddWishView(CreateView):
 class WishListView(View):
     def get(self, request, id):
         wishes = Wish.objects.filter(member_id=id)
-        for wish in wishes:
-            if wish.is_booked():
-                wish.delete()
+        # for wish in wishes:
+        #     if wish.is_booked():
+        #         wish.delete()
         return render(request, 'wishlist.html', {'objects': wishes})
 
 
@@ -95,3 +95,13 @@ class SignUpFamilyView(CreateView):
 class InviteView(View):
     def get(self, request):
         return render(request, 'invite.html')
+
+
+class BookWish(View):
+    def post(self, request):
+        wish_id = request.POST.get("wish_id")
+        wish = Wish.objects.get(id=wish_id)
+        member = Member.objects.get(id=wish.member_id)
+        user = request.user
+        Present.objects.create(wish_id=wish_id, user_id=user.id)
+        return redirect(f"/wish-list/{member.id}")

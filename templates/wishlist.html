@@ -12,13 +12,16 @@
     </thead>
     <tbody>
         {% for object in objects %}
+            {% if not object.is_booked %}
             <tr>
                 <th scope="col">{{ forloop.counter }}</th>
                 <th scope="col">{{ object.name }}</th>
                 <th scope="col">{{ object.description }}</th>
                 <th scope="col">{{ object.link }}</th>
-                <th scope="col"><button class="btn btn-success"><a href='#'>Book</a></button> </th>
+                <th scope="col"><form method="post" action="/book-wish/">{% csrf_token %}<input name="wish_id" type="hidden" value="{{ object.id }}">
+                    <input type="submit" class="btn btn-success" value="Book"></form></th>
             </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
     </table>

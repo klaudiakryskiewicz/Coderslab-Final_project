@@ -30,7 +30,8 @@ urlpatterns = [
     path("accounts/", include('django.contrib.auth.urls')),
     path('accounts/signup/', views.SignUpView.as_view(), name='signup'),
     path('accounts/signup/family/<int:id>/', views.SignUpFamilyView.as_view(), name='signup'),
-    path('invite/', views.InviteView.as_view(), name='invite')
+    path('invite/', views.InviteView.as_view(), name='invite'),
+    path('book-wish/', views.BookWish.as_view(), name='book-wish'),
 ]
 
 
