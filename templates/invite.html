@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load tags %}
+{% block content %}
+Wanna invite a new user? Send him this link: XXX/accounts/signup/{% get_family_id request %}
+{# do zabawy z JS żeby kopiowało #}
+{% endblock %}

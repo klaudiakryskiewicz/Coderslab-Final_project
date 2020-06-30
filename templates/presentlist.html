@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if objects %}
     <table class="table">
     <thead>
     <tr>
@@ -26,4 +27,9 @@
         {% endfor %}
     </tbody>
     </table>
+    {% else %}
+    <div class="jumbotron">
+    You haven't picked any wishes yet
+    </div>
+    {% endif %}
 {% endblock %}

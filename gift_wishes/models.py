@@ -27,7 +27,7 @@ class Member(models.Model):
     def free_wishes(self):
         wishes = Wish.objects.filter(member_id=self.id)
         for wish in wishes:
-            if wish.is_booked:
+            if wish.is_booked():
                 wish.delete()
         return wishes
 
@@ -35,7 +35,7 @@ class Member(models.Model):
         wishes = Wish.objects.filter(member_id=self.id)
         free_wishes = []
         for wish in wishes:
-            if not wish.is_booked:
+            if not wish.is_booked():
                 free_wishes.append(wish)
         return len(free_wishes)
 

@@ -14,7 +14,7 @@ def get_family_id(request):
 
 
 @register.simple_tag
-def get_family_id(request):
+def get_user_id(request):
     if request.user.is_authenticated:
         user = request.user
         return user.id

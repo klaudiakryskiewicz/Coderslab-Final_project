@@ -31,7 +31,7 @@ class WishListView(View):
     def get(self, request, id):
         wishes = Wish.objects.filter(member_id=id)
         for wish in wishes:
-            if wish.is_booked:
+            if wish.is_booked():
                 wish.delete()
         return render(request, 'wishlist.html', {'objects': wishes})
 
@@ -90,3 +90,8 @@ class SignUpFamilyView(CreateView):
     def form_valid(self, form):
         retval = super().form_valid(form)
         Member.objects.create(user=self.object)  # uzupełnij sobie
+
+
+class InviteView(View):
+    def get(self, request):
+        return render(request, 'invite.html')
