@@ -19,7 +19,7 @@ class Member(models.Model):
     gender = models.CharField(max_length=9, choices=genders, default='None')
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # main_member = models.BooleanField(default=True)
+    main_member = models.BooleanField(default=True)
 
     def wish_count(self):
         return Wish.objects.filter(member_id=self.id).count()

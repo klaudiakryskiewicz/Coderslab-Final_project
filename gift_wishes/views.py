@@ -67,6 +67,7 @@ class AddMemberView(CreateView):
         obj = form.save(commit=False)
 
         obj.user = self.request.user
+        obj.main_member = False
         obj.save()
         self.object = obj
         return HttpResponseRedirect(self.get_success_url())
