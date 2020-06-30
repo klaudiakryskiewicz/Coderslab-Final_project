@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Member</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Link</th>
+        <th scope="col">Is bought?</th>
+        <th scope="col">!</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for object in objects %}
+            <tr>
+                <th scope="col">{{ forloop.counter }}</th>
+                <th scope="col">{{ object.wish.member.name }}</th>
+                <th scope="col">{{ object.wish.name }}</th>
+                <th scope="col">{{ object.wish.description }}</th>
+                <th scope="col">{{ object.wish.link }}</th>
+                <th scope="col">{{ object.is_bought }}</th>
+                <th scope="col">{% if not object.is_bought %}<button class="btn btn-success"><a href='#'>I bought it!</a></button> {% endif %}</th>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

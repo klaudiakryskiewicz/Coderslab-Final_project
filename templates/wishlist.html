@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Link</th>
+        <th scope="col">Book</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for object in objects %}
+            <tr>
+                <th scope="col">{{ forloop.counter }}</th>
+                <th scope="col">{{ object.name }}</th>
+                <th scope="col">{{ object.description }}</th>
+                <th scope="col">{{ object.link }}</th>
+                <th scope="col"><button class="btn btn-success"><a href='#'>Book</a></button> </th>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

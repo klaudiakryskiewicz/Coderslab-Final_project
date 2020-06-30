@@ -6,11 +6,10 @@ class Family(models.Model):
     name = models.CharField(max_length=120)
 
     def member_count(self):
-        members = Member.objects.filter(family_id=self.id)
-        return len(members)
+        return Member.objects.filter(family_id=self.id).count()
 
     def __str__(self):
-        return f"{self.name} {self.member_count}"
+        return f"{self.name} {self.member_count()}"
 
 
 class Member(models.Model):
@@ -25,8 +24,23 @@ class Member(models.Model):
         wishes = Wish.objects.filter(member_id=self.id)
         return len(wishes)
 
+    def free_wishes(self):
+        wishes = Wish.objects.filter(member_id=self.id)
+        for wish in wishes:
+            if wish.is_booked:
+                wish.delete()
+        return wishes
+
+    def no_of_free_wishes(self):
+        wishes = Wish.objects.filter(member_id=self.id)
+        free_wishes = []
+        for wish in wishes:
+            if not wish.is_booked:
+                free_wishes.append(wish)
+        return len(free_wishes)
+
     def __str__(self):
-        return f"{self.name}, {self.wish_count}"
+        return f"{self.name}, {self.wish_count()}"
 
 
 class Wish(models.Model):
@@ -40,6 +54,9 @@ class Wish(models.Model):
         if Present.objects.get(wish_id=self.id):
             return True
         return False
+
+    def __str__(self):
+        return f"{self.name} {self.description} {self.link} {self.price}"
 
 
 class Present(models.Model):
