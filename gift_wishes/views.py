@@ -105,3 +105,12 @@ class BookWish(View):
         user = request.user
         Present.objects.create(wish_id=wish_id, user_id=user.id)
         return redirect(f"/wish-list/{member.id}")
+
+class BuyPresent(View):
+    def post(self, request):
+        present_id = request.POST.get("present_id")
+        present = Present.objects.get(id=present_id)
+        present.is_bought = True
+        present.save()
+        user = request.user
+        return redirect(f"/present-list/{user.id}")

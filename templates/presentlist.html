@@ -22,7 +22,9 @@
                 <th scope="col">{{ object.wish.description }}</th>
                 <th scope="col">{{ object.wish.link }}</th>
                 <th scope="col">{{ object.is_bought }}</th>
-                <th scope="col">{% if not object.is_bought %}<button class="btn btn-success"><a href='#'>I bought it!</a></button> {% endif %}</th>
+                <th scope="col">{% if not object.is_bought %}<form method="post" action="/buy-present/">
+                    {% csrf_token %}<input name="present_id" type="hidden" value="{{ object.id }}">
+                    <input type="submit" class="btn btn-success" value="I bought it"></form>{% endif %}</th>
             </tr>
         {% endfor %}
     </tbody>

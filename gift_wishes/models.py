@@ -21,8 +21,7 @@ class Member(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def wish_count(self):
-        wishes = Wish.objects.filter(member_id=self.id)
-        return len(wishes)
+        return Wish.objects.filter(member_id=self.id).count()
 
     def free_wishes(self):
         wishes = Wish.objects.filter(member_id=self.id)
