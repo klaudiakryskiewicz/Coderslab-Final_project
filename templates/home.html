@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load tags %}
+{% block content %}
+    <div class="jumbotron">
+        {% if not member_number is 1 %} Your family has {{ member_number }} members.
+        {% else %} You are the only member!
+        {% endif %} Click <a href="/invite">here</a> to invite your family!
+    </div>
+    <div class="jumbotron">
+        You control {{ control_member_number }} members.
+        Click <a href="/add-member">here</a> to add one!
+    </div>
+    <div class="jumbotron">
+        {% for member in control_member %}
+        You added {{ member.wish_count }} wishes for {{ member.name }}, there are {{ member.no_of_free_wishes }} left! <br>
+        {% endfor %}
+        Click <a href="/add-wish">here</a> to add new wishes!
+    </div>
+    <div class="jumbotron">
+        You picked {{ present_number }} presents.
+        You have {{ present_to_buy }} left to buy.
+        Click <a href="/present-list/{% get_user_id request %}">here</a> to see details!
+    </div>
+{% endblock %}

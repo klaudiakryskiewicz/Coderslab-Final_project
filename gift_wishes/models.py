@@ -19,24 +19,13 @@ class Member(models.Model):
     gender = models.CharField(max_length=9, choices=genders, default='None')
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # main_member = models.BooleanField(default=True)
 
     def wish_count(self):
         return Wish.objects.filter(member_id=self.id).count()
 
-    def free_wishes(self):
-        wishes = Wish.objects.filter(member_id=self.id)
-        for wish in wishes:
-            if wish.is_booked():
-                wish.delete()
-        return wishes
-
     def no_of_free_wishes(self):
-        wishes = Wish.objects.filter(member_id=self.id)
-        free_wishes = []
-        for wish in wishes:
-            if not wish.is_booked():
-                free_wishes.append(wish)
-        return len(free_wishes)
+        return Wish.objects.filter(member=self, present__isnull=True).count()
 
     def __str__(self):
         return f"{self.name}, {self.wish_count()}"

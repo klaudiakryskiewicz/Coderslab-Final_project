@@ -8,10 +8,21 @@ from django.views.generic import CreateView
 
 from gift_wishes.forms import WishForm, MemberForm, FamilyForm
 from gift_wishes.models import Wish, Member, Present
+from gift_wishes.templatetags.tags import get_family_id
 
 
 def index(request):
-    return render(request, 'base.html')
+    family_id = get_family_id(request)
+    member_number = Member.objects.filter(family=family_id).count()
+    user = request.user
+    control_member = Member.objects.filter(user=user)
+    control_member_number = control_member.count()
+    presents = Present.objects.filter(user=user)
+    present_number = presents.count()
+    present_to_buy = presents.filter(is_bought=False).count()
+    return render(request, 'home.html', {'member_number': member_number, 'control_member_number': control_member_number,
+                                         'control_member': control_member, 'present_number':present_number,
+                                         'present_to_buy':present_to_buy})
 
 
 class AddWishView(CreateView):
@@ -29,10 +40,7 @@ class AddWishView(CreateView):
 
 class WishListView(View):
     def get(self, request, id):
-        wishes = Wish.objects.filter(member_id=id)
-        # for wish in wishes:
-        #     if wish.is_booked():
-        #         wish.delete()
+        wishes = Wish.objects.filter(member_id=id, present__isnull=True)
         return render(request, 'wishlist.html', {'objects': wishes})
 
 
@@ -77,10 +85,6 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("add-family")
     template_name = 'registration/signup.html'
 
-    def form_valid(self, form):
-        retval = super().form_valid(form)
-        Member.objects.create(user=self.object)  # uzupełnij sobie
-
 
 class SignUpFamilyView(CreateView):
     form_class = UserCreationForm
@@ -105,6 +109,7 @@ class BookWish(View):
         user = request.user
         Present.objects.create(wish_id=wish_id, user_id=user.id)
         return redirect(f"/wish-list/{member.id}")
+
 
 class BuyPresent(View):
     def post(self, request):
