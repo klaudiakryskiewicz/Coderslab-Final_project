@@ -12,7 +12,7 @@ class FamilyForm(forms.ModelForm):
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        exclude = ['user']
+        exclude = ['user', 'family', 'main_member']
 
 
 class WishForm(forms.ModelForm):
