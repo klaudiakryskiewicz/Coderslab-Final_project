@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -15,7 +17,7 @@ class Family(models.Model):
 class Member(models.Model):
     genders = [('F', 'Kobieta'), ('M', 'Mężczyzna'), ('None', '-')]
     name = models.CharField(max_length=120)
-    age = models.IntegerField() #może zmienić na date_of_birth?
+    age = models.IntegerField(null=True) #może zmienić na date_of_birth?
     gender = models.CharField(max_length=9, choices=genders, default='None')
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

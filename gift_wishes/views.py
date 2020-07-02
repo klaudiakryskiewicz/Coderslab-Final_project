@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -29,7 +30,9 @@ def index(request):
     return render(request, 'base.html')
 
 
-class AddWishView(CreateView):
+class AddWishView(LoginRequiredMixin, CreateView):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
     form_class = WishForm
     template_name = "form.html"
 
@@ -42,20 +45,29 @@ class AddWishView(CreateView):
         return form
 
 
-class WishListView(View):
+class WishListView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request, id):
         wishes = Wish.objects.filter(member_id=id, present__isnull=True)
         return render(request, 'wishlist.html', {'objects': wishes})
 
 
-class PresentListView(View):
+class PresentListView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         id = get_user_id(request)
         presents = Present.objects.filter(user_id=id)
         return render(request, 'presentlist.html', {'objects': presents})
 
 
-class FamilyMembersView(View):
+class FamilyMembersView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         id = get_family_id(request)
         members = Member.objects.filter(family_id=id)
@@ -79,7 +91,9 @@ class AddMemberView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class AddMainMemberView(View):
+class AddMainMemberView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
     def get(self, request, id):
         form = MemberForm()
@@ -95,7 +109,9 @@ class AddMainMemberView(View):
         return redirect('family')
 
 
-class AddFamilyView(View):
+class AddFamilyView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
 
     def get(self, request):
         form = FamilyForm()
