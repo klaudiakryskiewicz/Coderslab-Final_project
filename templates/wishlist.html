@@ -17,7 +17,7 @@
                 <th scope="col">{{ forloop.counter }}</th>
                 <th scope="col">{{ object.name }}</th>
                 <th scope="col">{{ object.description }}</th>
-                <th scope="col">{{ object.link }}</th>
+                <th scope="col"><a target="_blank" rel="noopener noreferrer" href="{{ object.link }}">{{ object.link }}</a></th>
                 <th scope="col"><form method="post" action="/book-wish/">{% csrf_token %}<input name="wish_id" type="hidden" value="{{ object.id }}">
                     <input type="submit" class="btn btn-success" value="Book"></form></th>
             </tr>

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load tags %}
 {% block content %}
-<div class="jumbotron"> Wanna invite a new user? Send him this link: XXX/accounts/signup/{% get_family_id request %}</div>
+<div class="jumbotron"> Wanna invite a new user? Send him this link: XXX/accounts/signup/family/{% get_family_id request %}</div>
 {# do zabawy z JS żeby kopiowało #}
 {% endblock %}

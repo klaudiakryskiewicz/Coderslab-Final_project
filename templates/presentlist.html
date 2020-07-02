@@ -10,7 +10,7 @@
         <th scope="col">Description</th>
         <th scope="col">Link</th>
         <th scope="col">Is bought?</th>
-        <th scope="col">!</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
                 <th scope="col">{{ object.wish.member.name }}</th>
                 <th scope="col">{{ object.wish.name }}</th>
                 <th scope="col">{{ object.wish.description }}</th>
-                <th scope="col">{{ object.wish.link }}</th>
+                <th scope="col"><a target="_blank" rel="noopener noreferrer" href="{{ object.wish.link }}">{{ object.wish.link }}</a></th>
                 <th scope="col">{{ object.is_bought }}</th>
                 <th scope="col">{% if not object.is_bought %}<form method="post" action="/buy-present/">
                     {% csrf_token %}<input name="present_id" type="hidden" value="{{ object.id }}">

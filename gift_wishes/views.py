@@ -4,13 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
+
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
 
 from gift_wishes.forms import WishForm, MemberForm, FamilyForm
 from gift_wishes.models import Wish, Member, Present, Family
-from gift_wishes.templatetags.tags import get_family_id, get_user_id
+from gift_wishes.templatetags.tags import get_family_id, get_user_id, get_family
 
 
 def index(request):
@@ -84,7 +85,7 @@ class AddMemberView(CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
-        obj.family.id = get_family_id()
+        obj.family = get_family(self.request)
         obj.main_member = False
         obj.save()
         self.object = obj
