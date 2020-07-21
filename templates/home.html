@@ -7,7 +7,9 @@
         {% endif %} Click <a href="/invite">here</a> to invite your family!
     </div>
     <div class="jumbotron">
-        You control {{ control_member_number }} members.
+        You control {{ control_member_number }} members: {% for member in control_member %}
+        {{ member.name }}
+        {% endfor %}.
         Click <a href="/add-member">here</a> to add one!
     </div>
     <div class="jumbotron">

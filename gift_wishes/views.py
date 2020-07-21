@@ -33,7 +33,7 @@ def index(request):
 
 class AddWishView(LoginRequiredMixin, CreateView):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
     form_class = WishForm
     template_name = "form.html"
 
@@ -48,7 +48,7 @@ class AddWishView(LoginRequiredMixin, CreateView):
 
 class WishListView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
 
     def get(self, request, id):
         wishes = Wish.objects.filter(member_id=id, present__isnull=True)
@@ -57,7 +57,7 @@ class WishListView(LoginRequiredMixin, View):
 
 class PresentListView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
 
     def get(self, request):
         id = get_user_id(request)
@@ -67,7 +67,7 @@ class PresentListView(LoginRequiredMixin, View):
 
 class FamilyMembersView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
 
     def get(self, request):
         id = get_family_id(request)
@@ -94,7 +94,7 @@ class AddMemberView(CreateView):
 
 class AddMainMemberView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
 
     def get(self, request, id):
         form = MemberForm()
@@ -112,7 +112,7 @@ class AddMainMemberView(LoginRequiredMixin, View):
 
 class AddFamilyView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
-    redirect_field_name = 'redirect_to'
+    redirect_field_name = 'next'
 
     def get(self, request):
         form = FamilyForm()

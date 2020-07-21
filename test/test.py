@@ -2,18 +2,10 @@ from gift_wishes.models import Family, Member, Present, Wish
 from .utils import create_fake_family
 import pytest
 
-def test_foo():
-    assert True
-
-
-@pytest.mark.django_db
-def test_add_family(client, user, set_up):
-    families_before = Family.objects.count()
-    create_fake_family()
-    assert Family.objects.count() == families_before + 1
 
 
 
+#czy ilość członków jest taka sama jak w bazie - response.contex
 @pytest.mark.django_db
 def test_member_list(client, user, set_up):
     client.login(username='Superadmin', password='ABChaslo')
