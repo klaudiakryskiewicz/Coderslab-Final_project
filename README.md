@@ -46,3 +46,13 @@ The project also includes:
 ## Wish form
 ![Form screenshot](https://i.ibb.co/b63MWWJ/Zrzut-ekranu-z-2020-07-21-14-39-31.png)
 
+## To do
+
+* tests with Pytest
+* present list filters
+* wish delete view
+* wish update view
+* wish list filters
+* possibility of buying present with other member
+* wish list view update (displaying all wishes together, not separately as in current view)
+
