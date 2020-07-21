@@ -37,3 +37,12 @@ The project also includes:
 ## Database structure:
 ![Database structure](https://i.ibb.co/TYcRzkw/Zrzut-ekranu-z-2020-07-21-14-29-34.png)
 
+## Homepage
+![Homepage screenshot](https://i.ibb.co/xCYWf5H/Zrzut-ekranu-z-2020-07-21-14-38-50.png)
+
+## Family members list
+![Family screenshot](https://i.ibb.co/S56QdzZ/Zrzut-ekranu-z-2020-07-21-14-39-12.png)
+
+## Wish form
+![Form screenshot](https://i.ibb.co/b63MWWJ/Zrzut-ekranu-z-2020-07-21-14-39-31.png)
+
