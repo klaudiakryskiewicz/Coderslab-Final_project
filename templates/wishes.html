@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for member in members %}
+        <h2>{{ member.name }}</h2>
+    <table class="table">
+    {% if member.no_of_free_wishes is 0 %}
+        <h3>There is no more free wishes. Click #here to ask {{ member.name }} to add some!</h3>
+        {% else %}
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Link</th>
+        <th scope="col">Book</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        {% for object in member.wishes.all %}
+            {% if not object.is_booked %}
+            <tr>
+                <th scope="col">{{ forloop.counter }}</th>
+                <th scope="col">{{ object.name }}</th>
+                <th scope="col">{{ object.description }}</th>
+                <th scope="col"><a target="_blank" rel="noopener noreferrer" href="{{ object.link }}">{{ object.link }}</a></th>
+                <th scope="col"><form method="post" action="/book-wish/">{% csrf_token %}<input name="wish_id" type="hidden" value="{{ object.id }}">
+                    <input type="submit" class="btn btn-success" value="Book"></form></th>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+
+             </tbody>
+    </table>
+    {% endfor %}
+{% endblock %}

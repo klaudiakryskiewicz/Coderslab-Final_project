@@ -183,3 +183,13 @@ class BuyPresent(View):
         present.is_bought = True
         present.save()
         return redirect(f"/present-list")
+
+
+class WishView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'next'
+
+    def get(self, request):
+        family_id = get_family_id(request)
+        members = Member.objects.filter(family=family_id)
+        return render(request, 'wishes.html', {'members': members})

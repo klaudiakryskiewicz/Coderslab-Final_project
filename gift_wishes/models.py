@@ -38,7 +38,7 @@ class Wish(models.Model):
     description = models.TextField(null=True)
     link = models.CharField(max_length=300, null=True)
     price = models.IntegerField(null=True)
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='wishes')
 
     def is_booked(self):
         if Present.objects.get(wish_id=self.id):

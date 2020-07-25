@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.index, name='main'),
     path('add-wish/', views.AddWishView.as_view(), name='add-wish'),
     path('wish-list/<int:id>/', views.WishListView.as_view(), name='wish-list'),
+    path('wish-list/', views.WishView.as_view(), name='wish-list-all'),
     path('present-list/', views.PresentListView.as_view(), name='present-list'),
     path('family/', views.FamilyMembersView.as_view(), name='family'),
     path('add-main-member/<int:id>', views.AddMainMemberView.as_view(), name='add-main-member'),
